@@ -620,7 +620,7 @@ export default function UsersPage() {
             </div>
             
             <div className="mb-6">
-              <p>Êtes-vous sûr de vouloir supprimer l'utilisateur suivant ?</p>
+              <p>Êtes-vous sûr de vouloir supprimer l&apos;utilisateur suivant ?</p>
               <div className="mt-4 p-4 border border-secondary-foreground/30 rounded-md">
                 <div className="flex items-center">
                   <Image

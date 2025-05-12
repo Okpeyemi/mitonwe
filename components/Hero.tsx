@@ -18,6 +18,11 @@ interface HeroProps {
   onFile3DImport?: File3DImportHandler;
 }
 
+interface DirectoryAttributes {
+  directory: string;
+  webkitdirectory: string;
+}
+
 export const Hero: React.FC<HeroProps> = ({ onFile3DImport }) => {
   const [importModalOpen, setImportModalOpen] = useState(false);
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -117,7 +122,7 @@ export const Hero: React.FC<HeroProps> = ({ onFile3DImport }) => {
         ref={folderInputRef}
         className="hidden"
         onChange={onFileSelected}
-        {...({ directory: "", webkitdirectory: "" } as any)}
+        {...({ directory: "", webkitdirectory: "" } as DirectoryAttributes)}
       />
       {/* Input spécifique pour les modèles 3D */}
       <input

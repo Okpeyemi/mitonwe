@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Home, Folder, Menu, X } from "lucide-react";
+import { Home, Folder, Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useOnClickOutside } from "@/lib/hooks";

@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "@/components/Header";
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState } from "react";
 
 // Créer un contexte pour partager l'état des panneaux
 export const PanelContext = createContext({

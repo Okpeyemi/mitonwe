@@ -74,16 +74,16 @@ const RecentFileTable: React.FC<FileTableProps> = ({
     }
   };
 
-  const handleOpen = (id: string) => {
-    onOpen && onOpen(id);
+   const handleOpen = (id: string) => {
+    if (onOpen) onOpen(id);
   };
 
   const handleShare = (id: string) => {
-    onShare && onShare(id);
+    if (onShare) onShare(id);
   };
 
   const handleDelete = (id: string) => {
-    onDelete && onDelete(id);
+    if (onDelete) onDelete(id);
   };
 
   const getFileIcon = (type: string) => {

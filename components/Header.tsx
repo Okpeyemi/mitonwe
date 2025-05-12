@@ -3,7 +3,7 @@ import LogoNoir from "@/public/logo-noir.png";
 import LogoBlanc from "@/public/logo-blanc.png";
 import Image from "next/image";
 import { ModeToggle } from "@/components/ModeToggle";
-import { FileText, Grid, MessageCircle, ScanEye } from "lucide-react";
+import { FileText, Grid, Mail, MessageCircle, ScanEye } from "lucide-react";
 import Button from "./Button";
 import { useTheme } from "next-themes";
 
@@ -78,6 +78,10 @@ const Header: React.FC<HeaderProps> = ({
           icon={<ScanEye size={20} />}
           variant={isPreviewVisible ? "active" : "default"}
           onClick={showPreview}
+        /><Button
+          icon={<Mail size={20} />}
+          variant="disabled"
+          // onClick={showPreview}
         />
       </div>
       <div className="flex items-center justify-center space-x-2 ml-2">
