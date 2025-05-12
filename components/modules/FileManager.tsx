@@ -10,7 +10,10 @@ interface FileManagerProps {
   activePanelsCount: number;
 }
 
-const FileManager:React.FC<FileManagerProps> = ({ onFile3DImport, activePanelsCount }) => {
+const FileManager: React.FC<FileManagerProps> = ({
+  onFile3DImport,
+  activePanelsCount,
+}) => {
   const pathname = usePathname();
 
   return (
@@ -18,7 +21,13 @@ const FileManager:React.FC<FileManagerProps> = ({ onFile3DImport, activePanelsCo
       <SideBar />
       <div className="flex flex-col w-full h-full items-center p-8">
         <Hero onFile3DImport={onFile3DImport} />
-        {pathname === "/dashboard" ? (<Acceuil activePanelsCount={activePanelsCount} />) : (<Dossiers />)}
+        {pathname === "/dashboard" ? (
+          <Acceuil activePanelsCount={activePanelsCount} />
+        ) : pathname === "/dashboard/dossiers" ? (
+          <Dossiers />
+        ) : (
+          <div>Sélectionnez un dossier</div>
+        )}
       </div>
     </div>
   );

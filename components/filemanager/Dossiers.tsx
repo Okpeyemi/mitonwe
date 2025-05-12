@@ -3,7 +3,20 @@ import { Folder } from "lucide-react";
 import FileTable from "@/components/FileTable";
 import Pagination from "../Pagination";
 
-const files = [
+// Définir le type approprié pour les fichiers
+type FileType = "pdf" | "doc" | "3d" | "folder";
+
+// Définir l'interface pour les éléments de fichier
+interface FileItem {
+  id: string;
+  name: string;
+  type: FileType;
+  modified: string;
+  sharedWith: { id: string; avatar: string }[];
+  starred: boolean;
+}
+
+const files: FileItem[] = [
   {
     id: "1",
     name: "Document de cadrage",
