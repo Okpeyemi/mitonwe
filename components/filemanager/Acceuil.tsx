@@ -55,7 +55,7 @@ const Acceuil: React.FC<AcceuilProps> = ({ activePanelsCount = 1 }) => {
   const getFileIconGridClass = () => {
     switch (activePanelsCount) {
       case 1:
-        return "grid-cols-8"; // Plus d'espace quand un seul panneau
+        return "grid-cols-5"; // Plus d'espace quand un seul panneau
       case 2:
         return "grid-cols-4"; // Moins d'espace quand deux panneaux
       case 3:
