@@ -1,11 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import LogoNoir from "@/public/logo-noir.png";
 import LogoBlanc from "@/public/logo-blanc.png";
 import Image from "next/image";
 import { ModeToggle } from "@/components/ModeToggle";
-import { FileText, Grid, Mail, MessageCircle, ScanEye } from "lucide-react";
+import {
+  FileText,
+  Grid,
+  Home,
+  LogOut,
+  Mail,
+  MessageCircle,
+  ScanEye,
+  Users,
+} from "lucide-react";
 import Button from "./Button";
 import { useTheme } from "next-themes";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useOnClickOutside } from "@/lib/hooks";
 
 interface HeaderProps {
   isFileVisible: boolean;
@@ -26,11 +38,17 @@ const Header: React.FC<HeaderProps> = ({
   showFile,
   showProject,
   showChat,
-  showPreview
+  showPreview,
 }) => {
   const { resolvedTheme } = useTheme();
   // État pour gérer le montage côté client
   const [mounted, setMounted] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const pathname = usePathname();
+  const dropdownRef = useRef(null);
+
+  // Fermer le dropdown quand on clique ailleurs
+  useOnClickOutside(dropdownRef, () => setDropdownOpen(false));
 
   // Effet uniquement côté client
   useEffect(() => {
@@ -42,12 +60,7 @@ const Header: React.FC<HeaderProps> = ({
       <div>
         {!mounted ? (
           // Durant le rendu SSR, afficher une seule version
-          <Image
-            src={LogoNoir}
-            alt="Logo"
-            width={50}
-            height={29}
-          />
+          <Image src={LogoNoir} alt="Logo" width={50} height={29} />
         ) : (
           // Après montage côté client, condition basée sur le thème
           <Image
@@ -78,7 +91,8 @@ const Header: React.FC<HeaderProps> = ({
           icon={<ScanEye size={20} />}
           variant={isPreviewVisible ? "active" : "default"}
           onClick={showPreview}
-        /><Button
+        />
+        <Button
           icon={<Mail size={20} />}
           variant="disabled"
           // onClick={showPreview}
@@ -86,9 +100,40 @@ const Header: React.FC<HeaderProps> = ({
       </div>
       <div className="flex items-center justify-center space-x-2 ml-2">
         <ModeToggle />
-        <div className="flex items-center space-x-2">
-          <span className="p-4 rounded-full bg-amber-200"></span>
-          <p>Darell Chooks</p>
+        <div className="relative" ref={dropdownRef}>
+          <div
+            className="flex items-center space-x-2 cursor-pointer"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          >
+            <span className="p-4 rounded-full bg-amber-200"></span>
+            <p>Darell Chooks</p>
+          </div>
+
+          {dropdownOpen && (
+            <div className="absolute right-0 mt-2 w-48 py-2 bg-primary border border-secondary-foreground rounded-md shadow-lg z-10">
+              <Link
+                href="/dashboard"
+                className={`flex items-center mx-2 px-4 py-2 hover:bg-secondary-foreground rounded-[5px] ${pathname === "/dashboard" ? "bg-secondary-foreground mb-2" : ""}`}
+              >
+                <Home className="mr-2" size={16} />
+                <span>Acceuil</span>
+              </Link>
+              <Link
+                href="/users"
+                className={`flex items-center mx-2 px-4 py-2 hover:bg-secondary-foreground rounded-[5px] ${pathname === "/users" ? "bg-secondary-foreground mb-2" : ""}`}
+              >
+                <Users className="mr-2" size={16} />
+                <span>Utilisateurs</span>
+              </Link>
+              <Link
+                href="#"
+                className="flex items-center mx-2 px-4 py-2 text-left hover:bg-red-300 text-red-800 rounded-[5px]"
+              >
+                <LogOut className="mr-2" size={16} />
+                <span>Déconnexion</span>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>
