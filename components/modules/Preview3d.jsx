@@ -4,51 +4,24 @@ import React, { useRef, useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "@google/model-viewer";
 import { MessageSquare } from "lucide-react";
-                                                                                                                                                    
-// Define types for the model-viewer element
-interface ModelViewerElement extends HTMLElement {
-  cameraOrbit: string;
-  fieldOfView: string;
-  positionAndNormalFromPoint(x: number, y: number): Promise<HitResult | null>;
-  appendChild(child: Element): void;
-  removeChild(child: Element): void;
-  querySelector(selectors: string): Element | null;
-}
-
-interface HitResult {
-  position: { x: number; y: number; z: number };
-  normal: { x: number; y: number; z: number };
-}
 
 // Chargement dynamique et uniquement côté client
 const ModelViewer = dynamic(
   async () => {
     await import("@google/model-viewer");
-    return function MV(props: React.ComponentProps<"model-viewer">) {
-      // @ts-expect-error - model-viewer is a custom element and not part of HTML standard
-      return <model-viewer {...props} />;
+    return function MV(props) {
+      return React.createElement('model-viewer', props);
     };
   },
   { ssr: false }
 );
 
-type CommentData = {
-  id: string;
-  comment: string;
-  position: { x: number; y: number; z: number };
-  normal: { x: number; y: number; z: number };
-};
-
-interface Preview3DProps {
-  modelFile?: File;
-}
-
-const Preview3D: React.FC<Preview3DProps> = ({ modelFile }) => {
-  const viewerRef = useRef<ModelViewerElement | null>(null);
-  const [comments, setComments] = useState<CommentData[]>([]);
-  const [src, setSrc] = useState<string>("voiture.glb");
+const Preview3D = ({ modelFile }) => {
+  const viewerRef = useRef(null);
+  const [comments, setComments] = useState([]);
+  const [src, setSrc] = useState("voiture.glb");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
   const [showSidebar, setShowSidebar] = useState(false);
 
   // Utilisez useEffect pour détecter les changements de modelFile
@@ -70,7 +43,7 @@ const Preview3D: React.FC<Preview3DProps> = ({ modelFile }) => {
           setLoading(false);
         };
 
-        const onError = (event: Event) => {
+        const onError = (event) => {
           console.error("Erreur de chargement du modèle 3D:", event);
           setError("Impossible de charger le modèle 3D. Vérifiez le format du fichier.");
           setLoading(false);
@@ -96,7 +69,7 @@ const Preview3D: React.FC<Preview3DProps> = ({ modelFile }) => {
     const viewer = viewerRef.current;
     if (!viewer) return;
 
-    const onContextMenu = async (ev: MouseEvent) => {
+    const onContextMenu = async (ev) => {
       ev.preventDefault();
       if (!viewer.positionAndNormalFromPoint) return;
       const hit = await viewer.positionAndNormalFromPoint(
@@ -137,7 +110,7 @@ const Preview3D: React.FC<Preview3DProps> = ({ modelFile }) => {
   }, []);
 
   // Calcul orbit pour recentrer la caméra
-  const computeCameraOrbit = (pos: { x: number; y: number; z: number }) => {
+  const computeCameraOrbit = (pos) => {
     const { x, y, z } = pos;
     const r = Math.sqrt(x * x + y * y + z * z);
     const theta = (Math.atan2(x, z) * 180) / Math.PI;
@@ -146,7 +119,7 @@ const Preview3D: React.FC<Preview3DProps> = ({ modelFile }) => {
   };
 
   // Supprimer un commentaire
-  const deleteComment = (index: number) => {
+  const deleteComment = (index) => {
     const toRemove = comments[index];
     const viewer = viewerRef.current;
     if (!viewer) return;
@@ -188,7 +161,7 @@ const Preview3D: React.FC<Preview3DProps> = ({ modelFile }) => {
 
         <div className="relative">
           <ModelViewer
-            ref={viewerRef as React.RefObject<HTMLElement>}
+            ref={viewerRef}
             src={src}
             alt="Modèle 3D"
             camera-controls

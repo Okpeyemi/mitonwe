@@ -5,9 +5,15 @@ import React, { useState, useMemo, useEffect } from "react";
 import ChatPanel from "@/components/modules/ChatPanel";
 import FileManager from "@/components/modules/FileManager";
 import ProjectBoard from "@/components/modules/ProjectBoard";
-import Preview3D from "@/components/modules/Preview3d";
 import { ThemeProvider } from "@/components/theme-provider";
 import Split from "react-split";
+
+import dynamic from 'next/dynamic';
+
+const Preview3D = dynamic(
+  () => import('@/components/modules/Preview3d.jsx'),
+  { ssr: false }
+);
 
 const DashboardLayout = () => {
   const [showChat, setShowChat] = useState(false);

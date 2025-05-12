@@ -3,7 +3,7 @@ const path = require("path");
 
 module.exports = {
   reactStrictMode: true,
-  webpack(config) {
+  webpack(config: { resolve: { alias: any; }; }) {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       "three/examples/jsm": path.resolve(
