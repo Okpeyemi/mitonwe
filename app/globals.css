@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #ffffff;
+  --secondary: #005346;
+  --primary-foreground: #d9d9d9;
+  --secondary-foreground: rgba(0, 83, 70, 0.3);
+  --inactive: rgba(0, 83, 70, 0.1);
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-inactive: var(--inactive);
+  --font-montserrat: var(--font-montserrat);
+}
+
+.dark {
+  --primary: #000000;
+  --secondary: #ffffff;
+  --primary-foreground: #d9d9d9;
+  --secondary-foreground: #424242;
+  --inactive: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  background: var(--primary);
+  color: var(--secondary);
+  @apply font-montserrat;
+}
+
+h1 {
+  @apply text-[22px] font-bold;
+}
+
+h2 {
+  @apply text-[16px] font-semibold;
+}
+
+h3 {
+  @apply text-[14px] font-semibold;
+}
+
+h4 {
+  @apply text-[13px] font-semibold;
+}
+
+h5 {
+  @apply text-[12px] font-normal;
+}
+
+p {
+  @apply text-[12px] font-normal;
+}
+
+button {
+  @apply text-[13px] font-bold;
+}
+
+.react-grid-layout {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.react-grid-item {
+  padding: 0 !important;
+}
+
+/* styles pour les hotspots et tooltips */
+.hotspot {
+  background: rgba(0, 123, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.comment-tooltip {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+  width: 200px;
+  z-index: 999;
+  font-size: 12px;
+}
+
+.hotspot:hover .comment-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Styles pour les poignées de redimensionnement de react-split */
+.split-wrapper > .gutter {
+  background-color: var(--secondary-foreground);
+  position: relative;
+  cursor: row-resize;
+}
+
+.split-wrapper > .gutter::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 4px;
+  background-color: var(--primary);
+  border-radius: 2px;
+  box-shadow: 0 -2px 0 var(--secondary-foreground), 0 2px 0 var(--secondary-foreground);
+  transition: width 0.2s, opacity 0.2s;
+  opacity: 0.5;
+}
+
+.split-wrapper > .gutter:hover::after {
+  width: 40px;
+  opacity: 1;
+}

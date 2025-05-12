@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #ffffff;
+  --secondary: #005346;
+  --primary-foreground: #d9d9d9;
+  --secondary-foreground: rgba(0, 83, 70, 0.3);
+  --inactive: rgba(255, 255, 255, 0.3);
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-inactive: var(--inactive);
+  --font-montserrat: var(--font-montserrat);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #000000;
+    --secondary: #ffffff;
+    --primary-foreground: #424242;
+    --secondary-foreground: #d9d9d9;
+    --inactive: rgba(255, 255, 255, 0.3);
+  }
+}
+
+body {
+  background: var(--primary);
+  color: var(--secondary);
+  @apply font-montserrat;
+}
+
+h1 {
+  @apply text-[22px] font-bold;
+}
+
+h2 {
+  @apply text-[16px] font-semibold;
+}
+
+h3 {
+  @apply text-[14px] font-semibold;
+}
+
+h4 {
+  @apply text-[13px] font-semibold;
+}
+
+h5 {
+  @apply text-[12px] font-normal;
+}
+
+p {
+  @apply text-[12px] font-normal;
+}
+
+button {
+  @apply text-[13px] font-bold;
+}
+
+.react-grid-layout {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.react-grid-item {
+  padding: 0 !important;
+}
