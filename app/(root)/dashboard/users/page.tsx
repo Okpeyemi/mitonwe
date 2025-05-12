@@ -248,7 +248,7 @@ export default function UsersPage() {
                     <div className="h-10 w-10 flex-shrink-0 mr-3">
                       <Image
                         className="h-10 w-10 rounded-full"
-                        src={user.avatar}
+                        src={"/avatar-1.png"}
                         alt={`Avatar de ${user.name}`}
                         width={40}
                         height={40}
