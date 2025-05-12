@@ -145,7 +145,7 @@ const Preview3D = ({ modelFile }) => {
     <div className="flex h-full relative">
       {/* Zone 3D */}
       <main className={`p-4 ${showSidebar ? "w-[calc(100%-18rem)]" : "w-full"}`}>
-        <h2 className="text-xl mb-2">Visualisation 3D & Commentaires</h2>
+        {/* <h2 className="text-xl mb-2">Visualisation 3D & Commentaires</h2> */}
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
