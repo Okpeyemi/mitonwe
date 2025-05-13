@@ -7,6 +7,7 @@ import {
   FileText,
   Grid,
   Home,
+  LayoutDashboard,
   LogOut,
   Mail,
   MessageCircle,
@@ -58,18 +59,20 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <div className="flex border-b-2 border-secondary-foreground p-5 items-center justify-between">
       <div>
-        {!mounted ? (
-          // Durant le rendu SSR, afficher une seule version
-          <Image src={LogoNoir} alt="Logo" width={50} height={29} />
-        ) : (
-          // Après montage côté client, condition basée sur le thème
-          <Image
-            src={resolvedTheme === "dark" ? LogoBlanc : LogoNoir}
-            alt={resolvedTheme === "dark" ? "Logo Blanc" : "Logo Noir"}
-            width={50}
-            height={29}
-          />
-        )}
+        <Link href="/dashboard">
+          {!mounted ? (
+            // Durant le rendu SSR, afficher une seule version
+            <Image src={LogoNoir} alt="Logo" width={50} height={29} />
+          ) : (
+            // Après montage côté client, condition basée sur le thème
+            <Image
+              src={resolvedTheme === "dark" ? LogoBlanc : LogoNoir}
+              alt={resolvedTheme === "dark" ? "Logo Blanc" : "Logo Noir"}
+              width={50}
+              height={29}
+            />
+          )}
+        </Link>
       </div>
       <div className="flex items-center justify-center space-x-2">
         <Button
@@ -110,13 +113,13 @@ const Header: React.FC<HeaderProps> = ({
           </div>
 
           {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-48 py-2 bg-primary border border-secondary-foreground rounded-md shadow-lg z-10">
+            <div className="absolute right-0 mt-2 w-42 py-2 bg-primary border border-secondary-foreground rounded-md shadow-lg z-10">
               <Link
                 href="/dashboard"
                 className={`flex items-center mx-2 px-4 py-2 hover:bg-secondary-foreground rounded-[5px] ${pathname === "/dashboard" ? "bg-secondary-foreground mb-2" : ""}`}
               >
-                <Home className="mr-2" size={16} />
-                <span>Acceuil</span>
+                <LayoutDashboard className="mr-2" size={16} />
+                <span>Dashboard</span>
               </Link>
               <Link
                 href="/users"
@@ -126,7 +129,7 @@ const Header: React.FC<HeaderProps> = ({
                 <span>Utilisateurs</span>
               </Link>
               <Link
-                href="#"
+                href="/login"
                 className="flex items-center mx-2 px-4 py-2 text-left hover:bg-red-300 text-red-800 rounded-[5px]"
               >
                 <LogOut className="mr-2" size={16} />

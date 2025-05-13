@@ -24,7 +24,8 @@ export default function LoginPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Logique de connexion à implémenter
-    console.log({ email, password, rememberMe });
+    // console.log({ email, password, rememberMe });
+    window.location.href = "/dashboard"
   };
 
   return (
@@ -138,6 +139,7 @@ export default function LoginPage() {
               <div>
                 <button
                   type="submit"
+                  onClick={(e) => handleSubmit(e)}
                   className="w-full cursor-pointer flex justify-center py-2 px-4 border border-transparent rounded-md bg-secondary text-primary font-bold"
                 >
                   Sign in
